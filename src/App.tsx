@@ -3,47 +3,27 @@ import Connex from "@vechain/connex";
 import { ethers } from "@vechain/ethers";
 import { useState, useEffect } from "react";
 import { Row, Col, Input, Table } from "antd";
+import ABI from "./ABI.json";
 
 const connex = new Connex({
-  node: "https://mainnet.veblocks.net",
-  network: "main"
+  node: "https://testnet.veblocks.net",
+  network: "test"
 });
 
-const ABI = {
-  anonymous: false,
-  inputs: [
-    {
-      indexed: true,
-      name: "_from",
-      type: "address"
-    },
-    {
-      indexed: true,
-      name: "_to",
-      type: "address"
-    },
-    {
-      indexed: false,
-      name: "_value",
-      type: "uint256"
-    }
-  ],
-  name: "Transfer",
-  type: "event"
-};
-const CONTRACT_ADDRESS = "0x0000000000000000000000000000456E65726779";
+const CONTRACT_ADDRESS = "0xe5A2519F65d2C1C5567b67aCdDC7A79aAEFbF040";
 
 export default function App() {
   const [transfers, setTransfers] = useState([]);
   const [address, setAddress] = useState(
-    "0x0000000000000000000000000000456E65726779"
+    "0xe5A2519F65d2C1C5567b67aCdDC7A79aAEFbF040"
   );
 
   async function getHistoryFor(address) {
     try {
       const event = connex.thor.account(CONTRACT_ADDRESS).event(ABI);
       const logs = await event
-        .filter([{ _to: address }, { _from: address }])
+        // .filter([{ _to: address }, { _from: address }])
+        .filter([{ _from: address }])
         .order("desc")
         .apply(0, 20);
       const transfers = logs.map(({ decoded, meta }) => ({
