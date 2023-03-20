@@ -26,6 +26,7 @@ export default function App() {
         .filter([{ _from: address }])
         .order("desc")
         .apply(0, 20);
+      console.log(logs);
       const transfers = logs.map(({ decoded, meta }) => ({
         ...decoded,
         meta
