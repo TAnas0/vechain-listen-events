@@ -10,12 +10,12 @@ const connex = new Connex({
   network: "test"
 });
 
-const CONTRACT_ADDRESS = "0xe5A2519F65d2C1C5567b67aCdDC7A79aAEFbF040";
+const CONTRACT_ADDRESS = "0xD6a612460f647DC459A252b429EE1FA76bB76650";
 
 export default function App() {
   const [transfers, setTransfers] = useState([]);
   const [address, setAddress] = useState(
-    "0xe5A2519F65d2C1C5567b67aCdDC7A79aAEFbF040"
+    "0xD6a612460f647DC459A252b429EE1FA76bB76650"
   );
 
   async function getHistoryFor(address) {
